@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      refresh_tokes: {
+      refresh_token: {
         type: Sequelize.STRING(3000),
       },
       user_id: {

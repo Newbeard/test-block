@@ -1,6 +1,7 @@
 import { REGISTRATION, LOGIN, LOGOUT,  IS_LOADING, IS_ERROR, } from '../types'
 import axios from 'axios';
 axios.defaults.withCredentials = true;
+axios.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
 
 export const isLoading = (data) => ({
   type: IS_LOADING,
