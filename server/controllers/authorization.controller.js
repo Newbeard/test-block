@@ -75,7 +75,7 @@ const logoutUser = async (req, res) => {
   }
 };
 
-async function userRefresh(req, res) {
+const userRefresh = async (req, res) => {
   try {
     // достаем из кук токен
     const { refreshToken } = req.cookies;
@@ -92,14 +92,13 @@ async function userRefresh(req, res) {
         message: error.message,
       }).end();
   }
-}
+};
 
-async function userAccess(req, res) {
+const userAccess = async (req, res) => {
   try {
     // достаем из кук токен
     const { accessToken } = req.cookies;
     const userData = await access(accessToken);
-    console.log('1111', userData);
     // установим рефреш куки
     return res.json(userData);
   } catch (error) {
@@ -108,7 +107,7 @@ async function userAccess(req, res) {
         message: error.message,
       }).end();
   }
-}
+};
 
 module.exports = {
   registrationUser, loginUser, logoutUser, userAccess, userRefresh,

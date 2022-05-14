@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
 const { isValidEmail, isValidPassword } = require('../helpers/validator');
-const { userObj } = require('../controllers/userObj.controller');
+const { userObj } = require('../helpers/user.dto');
 const {
   generateTokens, saveToken, removeToken, validateAccessToken, validateRefreshToken, findToken,
 } = require('./token.service');
@@ -83,11 +83,6 @@ async function logout(refreshToken) {
 }
 
 async function refresh(refreshToken) {
-  // проверяем токен
-  // if (!refreshToken) {
-  //   // throw ApiError.UnaurhorizedError();
-  //   console.log('nooo token')
-  // }
   // валидируем (проверяем) токен
   const userData = validateRefreshToken(refreshToken);
   // отправляем токен в функцию, которая найдет его в бд
@@ -116,7 +111,6 @@ async function refresh(refreshToken) {
 async function access(accessToken) {
   // проверяем токен
   if (!accessToken) {
-    // throw ApiError.UnaurhorizedError();
     return null;
   }
   // валидируем (проверяем) токен

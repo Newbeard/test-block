@@ -1,7 +1,14 @@
 import { REGISTRATION, LOGIN, LOGOUT,  IS_LOADING, IS_ERROR, } from '../types'
 import axios from 'axios';
-axios.defaults.withCredentials = true;
-axios.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+const api = axios.create({
+  withCredentials: true,
+})
+api.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
+  return config;
+})
+
+
 
 export const isLoading = (data) => ({
   type: IS_LOADING,
@@ -20,12 +27,14 @@ export const registration = (data) => ({
 export const userRegistration = (payload) => async (dispatch) => { 
   dispatch(isLoading())
   try {
-    const { data } = await axios.post('/registration', payload )
+    const { data } = await api.post('/authorization/registration', payload )
     if(data.error){
       dispatch(isError(data))
     }
     else{
-    dispatch(registration(data))
+    localStorage.setItem("accessToken", JSON.stringify(data.accessToken))
+    localStorage.setItem("userId",JSON.stringify(data.user.id))
+    dispatch(registration(data.user))
     }
   } catch (err) {
     console.log(err);
@@ -41,12 +50,14 @@ export const login = (data) => ({
 export const userLogin = (payload) => async (dispatch) => { 
   dispatch(isLoading())
   try {
-    const { data } = await axios.post('/login', payload)
+    const { data } = await api.post('/authorization/login', payload)
     if(data.error){
       dispatch(isError(data))
     }
     else{
-    dispatch(login(data))
+      localStorage.setItem("accessToken",data.accessToken)
+      localStorage.setItem("userId",data.user.id)
+    dispatch(login(data.user))
   }
   } catch (err) {
     console.log(err);
@@ -59,22 +70,40 @@ export const logout = (data) => ({
 
 export const userLogout = (payload) => async (dispatch) => { 
   try {
-    await axios('/logout')
+    await api('/authorization/logout')
     dispatch(logout())
+    localStorage.removeItem('accessToken')
   }
    catch (err) {
     console.log(err);
   }
 }
 
-export const isSession = () => async (dispatch) => { 
+export const chekAuth = (payload) => async (dispatch) => { 
+  dispatch(isLoading())
   try {
-    const { data } = await axios('/session')
-    dispatch(login(data))
+    const { data } = await api.post('/authorization/login', payload)
+    if(data.error){
+      dispatch(isError(data))
+    }
+    else{
+    localStorage.setItem('tokenData', JSON.stringify( "accessToken", data.accessToken))
+    dispatch(login(data.user))
   }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 }
 
+
+export const checkAuth = () => async(dispatch) =>{
+  try {
+      const data = await axios('authorization/refresh', {withCredentials: true})
+      localStorage.setItem('accessToken',data.accessToken);
+      console.log(data);
+      dispatch(login(data.user))
+  } catch (err) {
+    console.log(err);;
+  } 
+}
 
