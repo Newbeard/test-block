@@ -1,10 +1,10 @@
-import { INIT_TASK } from "../types";
+import { INIT_ENTRY } from "../types";
 
-export function taskReducer(state = [], action) {
+export function entriesReducer(state = [], action) {
   const { type, payload } = action
 
   switch (type) {
-    case INIT_TASK: {
+    case INIT_ENTRY: {
       return payload
     }
 

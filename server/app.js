@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const config = require('./config/config');
 const checkConect = require('./helpers/checkConect');
-const indexRouter = require('./routes/indexRouter');
+const indexRouter = require('./routes/index.router');
 
 const PORT = process.env.PORT || 4000;
 

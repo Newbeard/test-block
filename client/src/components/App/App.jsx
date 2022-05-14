@@ -3,17 +3,24 @@ import { Routes, Route } from 'react-router-dom'
 import Nav from '../Nav/Nav'
 import Registration from '../Registration/Registration'
 import Login from '../Login/Login'
+import Profile from '../Profile/Profile'
 import Home from '../Home/Home'
-import React, { useEffect } from 'react';
-import {useDispatch} from 'react-redux'
-import { isSession } from '../../redux/actions/auth.action';
+import React, {useEffect} from 'react';
+import {checkAuth } from '../../redux/actions/auth.action'
+import { useDispatch} from 'react-redux'
+
+
 
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(isSession());
-  }, [dispatch]);
+    if(localStorage.getItem('accessToken')){
+    dispatch(checkAuth())
+    }
+  }, [dispatch])
+
+
   return (
     <>
 			<div className="wrapper">
@@ -23,6 +30,7 @@ function App() {
          <main className="uk-container">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile/>} />
 						<Route path="/registation" element={<Registration />} />
 						<Route path="/login" element={<Login />} />
           </Routes>

@@ -20,15 +20,14 @@ export default function Nav() {
     {!values.id? 
       <div className="uk-navbar-left">
        <ul className="uk-navbar-nav">
-        <li><Link to="/">Home</Link></li>
         <li><Link to="/login">SignIn</Link></li>
         <li><Link to="/registation">SignUp</Link></li>
        </ul>
       </div>:
         <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
-         <li><Link to="/">Home</Link></li>
-         {values.isAdmin && <li><Link to="#">Admin</Link></li>}
+        <li><Link to="/">Home</Link></li>
+         <li><Link to="/profile">Profile</Link></li>
          <li><Link to="#" href="#" onClick={hendlerClick}>Logout</Link></li>
         </ul>
        </div>
