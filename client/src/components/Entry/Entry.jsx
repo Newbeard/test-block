@@ -19,7 +19,7 @@ function Entry({entries}) {
 
   }
   const handlerClickDelete =(event) => {
-    const payload ={id: event.target.dataset.id }
+    const payload ={entryId: +event.target.dataset.id }
     dispatch(deleteEntryFromServer(payload))
   }
 

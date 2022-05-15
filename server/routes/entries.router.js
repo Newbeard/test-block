@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { getEntries, createEntry, editEntry, deleteEntry } = require('../controllers/entries.controller');
+const { auth } = require('../middlewares/auth.middleware');
 
 router.route('/:user_id')
   .get(getEntries);

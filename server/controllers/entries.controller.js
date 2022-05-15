@@ -16,8 +16,11 @@ const getEntries = async (req, res) => {
 
 const createEntry = async (req, res) => {
   try {
-    const { userId, newTitle } = req.body;
-    const entries = await newEntry(userId, newTitle);
+    const { userId, title } = req.body;
+    const img = req.files.file;
+    console.log(userId, title, img);
+    await newEntry(userId, title, img);
+    const entries = await initEntries(userId);
     return res.json(entries);
   } catch (error) {
     console.log(error.message);
@@ -30,8 +33,9 @@ const createEntry = async (req, res) => {
 
 const editEntry = async (req, res) => {
   try {
-    const { entryId, newTitle } = req.body;
-    const entries = await updateEntry(entryId, newTitle);
+    const { entryId, newTitle, id } = req.body;
+    await updateEntry(entryId, newTitle);
+    const entries = await initEntries(id);
     return res.json(entries);
   } catch (error) {
     console.log(error.message);
@@ -44,8 +48,9 @@ const editEntry = async (req, res) => {
 
 const deleteEntry = async (req, res) => {
   try {
-    const { entryId } = req.body;
-    const entries = await removEntry(entryId);
+    const { entryId, userId } = req.body;
+    await removEntry(entryId);
+    const entries = await initEntries(userId);
     return res.json(entries);
   } catch (error) {
     console.log(error.message);
