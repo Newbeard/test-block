@@ -32,9 +32,6 @@ export const updateEntryFromServer = (payload) => async (dispatch) => {
 
 export const newEntryFromServer = (payload) => async (dispatch) => {
   try {
-    // const userId = JSON.parse (localStorage.getItem ("userId"))
-    // payload.userId = +userId
-    console.log(payload);
     const { data } = await api.post('/entries', payload, {headers: {'Content-Type': 'multipart/form-data'}})
     dispatch(initEntry(data))
   } catch (error) {

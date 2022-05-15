@@ -17,8 +17,8 @@ async function updateEntry(entryId, newTitle, newImg) {
 }
 
 async function newEntry(userId, title, img) {
-  const imgPath = `/img/${img.name}`;
-  img.mv(`public/img/${img.name}`, (err) => {
+  const imgPath = `/${img.name}`;
+  img.mv(`public/${img.name}`, (err) => {
     if (err) { console.log(err); }
   });
   const entries = await Entry.create({ title, user_id: userId, img: imgPath });

@@ -87,6 +87,7 @@ const userRefresh = async (req, res) => {
     });
     return res.json(userData);
   } catch (error) {
+    console.log(error)
     res.status(401)
       .json({
         message: error.message,

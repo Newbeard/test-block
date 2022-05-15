@@ -85,6 +85,7 @@ async function logout(refreshToken) {
 async function refresh(refreshToken) {
   // валидируем (проверяем) токен
   const userData = validateRefreshToken(refreshToken);
+  console.log(11111111, userData);
   // отправляем токен в функцию, которая найдет его в бд
   const tokenFromDB = await findToken(refreshToken);
   if (!userData || !tokenFromDB) {

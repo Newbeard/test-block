@@ -67,11 +67,9 @@ async function removeToken(refreshToken) {
 
 // проверка токена в бд
 async function findToken(refreshToken) {
-  const foundToken = await Token.findOne({
-    where: {
-      refresh_token: refreshToken,
-    },
-  });
+  console.log(333333, refreshToken);
+  const foundToken = await Token.findAll();
+  console.log(222222, foundToken);
   return foundToken;
 }
 

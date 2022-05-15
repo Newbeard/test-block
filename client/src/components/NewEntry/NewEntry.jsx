@@ -18,9 +18,13 @@ function NewEntry (props) {
 
   const handlerSubmit = (event) => {
   event.preventDefault();
+  const userId = JSON.parse (localStorage.getItem ("userId"))
   const form = event.target;
   const payload = new FormData(form);
+  console.log(payload);
+  payload.append('userId', userId);
   payload.append('file', file);
+  console.log(payload);
   dispatch(newEntryFromServer(payload));
   setModal(true)
 }

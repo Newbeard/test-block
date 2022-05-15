@@ -6,9 +6,10 @@ import { useSelector  } from 'react-redux';
 
 
 export default function Nav() {
+  const id = JSON.parse (localStorage.getItem ("userId"))
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { values } = useSelector( state => state.user)
+  //const { values } = useSelector( state => state.user)
   const hendlerClick = (event) => {
     event.preventDefault()
     dispatch(userLogout())
@@ -17,7 +18,7 @@ export default function Nav() {
   }
   return (
   <nav className="uk-navbar-container uk-margin navbeckgraund" uk-navbar="mode: click">
-    {!values.id? 
+    {!id? 
       <div className="uk-navbar-left">
        <ul className="uk-navbar-nav">
         <li><Link to="/login">SignIn</Link></li>

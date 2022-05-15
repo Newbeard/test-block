@@ -13,12 +13,12 @@ import { useDispatch} from 'react-redux'
 
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if(localStorage.getItem('accessToken')){
-    dispatch(checkAuth())
-    }
-  }, [dispatch])
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if(localStorage.getItem('accessToken')){
+  //   dispatch(checkAuth())
+  //   }
+  // }, [dispatch])
 
 
   return (

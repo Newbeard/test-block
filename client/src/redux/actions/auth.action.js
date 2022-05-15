@@ -64,6 +64,7 @@ export const logout = (data) => ({
 
 export const userLogout = (payload) => async (dispatch) => { 
   try {
+    localStorage.removeItem("userId")
     await api('/authorization/logout')
     dispatch(logout())
     localStorage.removeItem('accessToken')

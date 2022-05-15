@@ -18,7 +18,6 @@ const createEntry = async (req, res) => {
   try {
     const { userId, title } = req.body;
     const img = req.files.file;
-    console.log(userId, title, img);
     await newEntry(userId, title, img);
     const entries = await initEntries(userId);
     return res.json(entries);
