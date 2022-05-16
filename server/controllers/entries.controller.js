@@ -32,9 +32,10 @@ const createEntry = async (req, res) => {
 
 const editEntry = async (req, res) => {
   try {
-    const { entryId, newTitle, id } = req.body;
-    await updateEntry(entryId, newTitle);
-    const entries = await initEntries(id);
+    const { entryId, newTitle, userId } = req.body;
+    const newImg = req.files.file;
+    await updateEntry(entryId, newTitle, newImg);
+    const entries = await initEntries(userId);
     return res.json(entries);
   } catch (error) {
     console.log(error.message);

@@ -1,6 +1,8 @@
-import React, {useEffect } from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {updateEntryFromServer, deleteEntryFromServer } from '../../redux/actions/entries.action'
+import  ModalEntry  from '../Modal/ModalEntry'
+import { useState } from 'react'
 
 
 
@@ -9,9 +11,18 @@ function Entry() {
   const { values } = useSelector( state => state.user)
   const { entries } = useSelector(state => state)
 
-  const handlerClicUpdate = (id) =>{
-    const payload ={id};
-    dispatch(updateEntryFromServer(payload))
+  const [isModal, setModal] = useState({ condition:false, entryId: null, entryTitle:null  })
+
+  const handlerClicUpdate = (entryId, entryTitle) =>{
+    setModal({condition:true, entryId: entryId, entryTitle:entryTitle})
+    console.log(isModal.condition);
+  }
+const onClouseModal = () =>{
+  setModal({ condition:false, entryId: null, entryTitle:null  })
+}
+
+  const handlerClicUpdateModal = () =>{
+    // dispatch(updateEntryFromServer())
 
   }
   const handlerClickDelete =(event) => {
@@ -26,8 +37,8 @@ function Entry() {
       {entries?.map((entry) => 
       <div key={entry?.id} className="card-list"> 
         <div className="card-item-name">{values?.name}</div>
-        <div className="card-item">{entry?.title}</div>
-        <div className="card-item-title">{entry?.createdAt.slice(0,10)}</div>
+        <div className="card-item-title">{entry?.title}</div>
+        <div className="card-item">{entry?.createdAt.slice(0,10)}</div>
         <div className="card-item-title">
          {(entry?.img.slice(-3).toLowerCase() === 'png' || entry?.img.slice(-3).toLowerCase() ==='jpg')?
           <img src={entry?.img} alt="нет файлов" width="200px" height="200px"/>:
@@ -42,6 +53,7 @@ function Entry() {
       )
       }
     </div>}
+      {isModal.condition && < ModalEntry handlerClicUpdateModal={handlerClicUpdateModal} isModal={isModal} onClouseModal={onClouseModal}/>}
     </>
   );
 }
