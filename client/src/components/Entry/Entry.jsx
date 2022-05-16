@@ -4,17 +4,13 @@ import {updateEntryFromServer, deleteEntryFromServer } from '../../redux/actions
 
 
 
-function Entry({entries}) {
+function Entry() {
   const dispatch = useDispatch()
   const { values } = useSelector( state => state.user)
-
-  useEffect(() => {
-  },[])
-
+  const { entries } = useSelector(state => state)
 
   const handlerClicUpdate = (id) =>{
     const payload ={id};
-    console.log(payload);
     dispatch(updateEntryFromServer(payload))
 
   }
@@ -24,7 +20,8 @@ function Entry({entries}) {
   }
 
   return (
-    <>
+    <>{!entries?
+      <></>:
     <div className="tasks uk-margin">
       {entries?.map((entry) => 
       <div key={entry?.id} className="card-list"> 
@@ -32,7 +29,7 @@ function Entry({entries}) {
         <div className="card-item">{entry?.title}</div>
         <div className="card-item-title">{entry?.createdAt.slice(0,10)}</div>
         <div className="card-item-title">
-         {(entry?.img.slice(-3).toLowerCase() == 'png' || entry?.img.slice(-3).toLowerCase() =='jpg')?
+         {(entry?.img.slice(-3).toLowerCase() === 'png' || entry?.img.slice(-3).toLowerCase() ==='jpg')?
           <img src={entry?.img} alt="нет файлов" width="200px" height="200px"/>:
           <video width="200" height="200" controls="controls"><source src={entry?.img}/></video>
           }
@@ -44,7 +41,7 @@ function Entry({entries}) {
       </div>
       )
       }
-    </div>
+    </div>}
     </>
   );
 }

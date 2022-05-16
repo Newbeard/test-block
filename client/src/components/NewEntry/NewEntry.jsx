@@ -5,6 +5,7 @@ import  Modal  from '../Modal/Modal'
 import { useState } from 'react'
 
 function NewEntry (props) {
+  const message = 'Новая запись успешно добавлена'
   const [file, setFile] = useState('')
   const dispatch = useDispatch()
   const [isModal, setModal] = useState(false)
@@ -21,10 +22,8 @@ function NewEntry (props) {
   const userId = JSON.parse (localStorage.getItem ("userId"))
   const form = event.target;
   const payload = new FormData(form);
-  console.log(payload);
   payload.append('userId', userId);
   payload.append('file', file);
-  console.log(payload);
   dispatch(newEntryFromServer(payload));
   setModal(true)
 }
@@ -41,7 +40,7 @@ function NewEntry (props) {
         </div>
 				<button className="uk-button uk-button-secondary btnNewTask">Add</button>
 		  </form>
-     {isModal && < Modal onClouseModal={onClouseModal}/>}
+     {isModal && < Modal onClouseModal={onClouseModal} message={message}/>}
       </>  
   );
 }

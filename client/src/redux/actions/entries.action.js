@@ -1,10 +1,9 @@
-import {INIT_ENTRY } from '../types'
+import {INIT_ENTRY} from '../types'
 import  api  from '../../utils/axios.config';
-import axios from 'axios'
 
-export const initEntry = (task) => ({
+export const initEntry = (data) => ({
   type: INIT_ENTRY,
-  payload: task
+  payload: data
 })
 
 

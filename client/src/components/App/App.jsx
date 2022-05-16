@@ -6,20 +6,31 @@ import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import Home from '../Home/Home'
 import React, {useEffect} from 'react';
-import {checkAuth } from '../../redux/actions/auth.action'
-import { useDispatch} from 'react-redux'
+import {checkAuth, initUser } from '../../redux/actions/auth.action'
+import { useDispatch, useSelector} from 'react-redux'
+import {initEntriesFromServer } from '../../redux/actions/entries.action'
+
 
 
 
 
 function App() {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if(localStorage.getItem('accessToken')){
-  //   dispatch(checkAuth())
-  //   }
-  // }, [dispatch])
+  const { values } = useSelector( state => state.user)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(localStorage.getItem('accessToken')){
+    dispatch(checkAuth())
+    }
+  }, [dispatch])
 
+  useEffect(() => {
+    dispatch(initUser())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(initEntriesFromServer(values.id))
+  }, [dispatch])
+  
 
   return (
     <>
