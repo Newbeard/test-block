@@ -24,7 +24,6 @@ function Entry() {
 
   const handlerClicUpdate = (entryId, entryTitle) =>{
     setModal({condition:true, entryId: entryId, entryTitle:entryTitle})
-    console.log(isModal.condition);
   }
 const onClouseModal = () =>{
   setModal({ condition:false, entryId: null, entryTitle:null  })
@@ -34,9 +33,7 @@ const onClouseModal = () =>{
     event.preventDefault();
     const userId = JSON.parse (localStorage.getItem ("userId"))
     const entryId = event.target.dataset.id;
-    console.log(entryId);
     const form = event.target;
-    console.log(event.target);
     const payload = new FormData(form);
     payload.append('entryId', + entryId);
     payload.append('userId', userId);
