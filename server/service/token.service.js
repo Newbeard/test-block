@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
-const {
-  Token,
-} = require('../db/models');
+const { Token } = require('../db/models');
+
+Error.stackTraceLimit = Infinity;
 
 const generateTokens = (payload) => {
   const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
     expiresIn: '59m',
   });
   const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
-    expiresIn: '60d',
+    expiresIn: '30d',
   });
 
   return {
@@ -67,7 +67,11 @@ async function removeToken(refreshToken) {
 
 // проверка токена в бд
 async function findToken(refreshToken) {
-  const foundToken = await Token.findAll();
+  const foundToken = await Token.findOne({
+    where: {
+      refresh_token: refreshToken,
+    },
+  });
   return foundToken;
 }
 
