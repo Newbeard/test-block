@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const config = require('./config/config');
 const checkConect = require('./helpers/checkConect');
@@ -11,6 +12,10 @@ const app = express();
 config(app);
 
 app.use('/', indexRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(process.env.PWD, 'public', 'build', 'index.html'));
+});
 
 app.listen(PORT, async () => {
   checkConect(PORT);

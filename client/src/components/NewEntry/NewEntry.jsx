@@ -24,6 +24,7 @@ function NewEntry (props) {
   const payload = new FormData(form);
   payload.append('userId', userId);
   payload.append('file', file);
+  console.log(payload);
   dispatch(newEntryFromServer(payload));
   setModal(true)
 }
