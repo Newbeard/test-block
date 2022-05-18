@@ -18,7 +18,6 @@ const config = (app) => {
   app.use(express.urlencoded({
     extended: true,
   }));
-  app.use('/public', express.static(path.join(process.env.PWD, 'public')));
   app.use('/build', express.static(path.join(process.env.PWD, 'build')));
   app.use(fileUpload());
   app.use(cookieParser());
