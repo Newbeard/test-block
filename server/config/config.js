@@ -18,7 +18,7 @@ const config = (app) => {
   app.use(express.urlencoded({
     extended: true,
   }));
-  app.use('/build', express.static(path.join(process.env.PWD, 'build')));
+  app.use(express.static(path.join(process.env.PWD, 'public')));
   app.use(fileUpload());
   app.use(cookieParser());
   app.use(cors(corsConfig));
