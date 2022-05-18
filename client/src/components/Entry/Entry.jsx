@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {updateEntryFromServer, deleteEntryFromServer, initEntriesFromServer } from '../../redux/actions/entries.action'
+import {updateEntryFromServer, deleteEntryFromServer} from '../../redux/actions/entries.action'
 import  ModalEntry  from '../Modal/ModalEntry'
 import { useState } from 'react'
 
@@ -15,10 +15,6 @@ function Entry() {
   const onChange = e => {
     setFile(e.target.files[0]);
   };
-
-  useEffect(() => {
-    dispatch(initEntriesFromServer(values.id))
-  }, [dispatch])
 
   const [isModal, setModal] = useState({ condition:false, entryId: null, entryTitle:null  })
 

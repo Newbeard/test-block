@@ -9,7 +9,7 @@ const initialState = {
     isLoading: false,
     error: null
   },
-  entries: {},  
+  entries: [],  
 }
 
 export const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(thunk)))

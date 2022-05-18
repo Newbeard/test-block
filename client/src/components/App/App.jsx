@@ -7,15 +7,9 @@ import Profile from '../Profile/Profile'
 import Home from '../Home/Home'
 import React, {useEffect} from 'react';
 import {checkAuth, initUser } from '../../redux/actions/auth.action'
-import { useDispatch, useSelector} from 'react-redux'
-import {initEntriesFromServer } from '../../redux/actions/entries.action'
-
-
-
-
+import { useDispatch } from 'react-redux'
 
 function App() {
-  const { values } = useSelector( state => state.user)
   const dispatch = useDispatch();
   useEffect(() => {
     if(localStorage.getItem('accessToken')){
@@ -26,11 +20,6 @@ function App() {
   useEffect(() => {
     dispatch(initUser())
   }, [dispatch])
-
-  useEffect(() => {
-    dispatch(initEntriesFromServer(values.id))
-  }, [dispatch])
-  
 
   return (
     <>
