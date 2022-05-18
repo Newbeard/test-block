@@ -14,7 +14,7 @@ config(app);
 app.use('/', indexRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(process.env.PWD, 'public', 'build', 'index.html'));
+  res.sendFile(path.join(process.env.PWD, 'build', 'index.html'));
 });
 
 app.listen(PORT, async () => {
