@@ -19,7 +19,7 @@ const registrationUser = async (req, res) => {
     });
 
     res.cookie('accessToken', userData.accessToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 1000 * 60 * 30,
       httpOnly: true,
     });
 
@@ -43,7 +43,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
     });
     res.cookie('accessToken', userData.accessToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 1000 * 60 * 30,
       httpOnly: true,
     });
 
